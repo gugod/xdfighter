@@ -45,20 +45,38 @@ $(function(){
     hpipe = new Hippie.Pipe();
     hpipe.args = "player";
 
+    var KEYS = {
+        LEFT: 37,
+        RIGHT: 39,
+        UP: 38,
+        DOWN: 40,
+        SPACE: 32,
+        ENTER: 13
+    };
+
     function init_joystick() {
+//         var keep = {  };
+//         $(document.body).bind("keyup", function(e) {
+//             switch(e.keyCode) {
+//                 case KEYS.SPACE:
+// 
+//                 break;
+//             }
+//         });
+
         $(document.body).bind("keydown", function(e) {
             var key = null;
             switch(e.keyCode) {
-            case 37:
+            case KEYS.LEFT:
                 key = "left";
                 break;
-            case 38:
+            case KEYS.UP:
                 key = "up";
                 break;
-            case 39:
+            case KEYS.RIGHT:
                 key = "right";
                 break;
-            case 40:
+            case KEYS.DOWN:
                 key = "down";
                 break;
             }
