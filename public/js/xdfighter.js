@@ -214,6 +214,7 @@ $(function(){
         
 	//hit?
 	if( cvsLeft + cvsF.animations[cvsF.currentState].width - 2 > aboboLeft ){
+        console.log(  'role overlay'  );
 
 	    if((cvsF.currentState == KICK || cvsF.currentState == PUNCH) && aboboF.currentState != BEATEN){
 
@@ -232,7 +233,10 @@ $(function(){
 
                 var pos = abobo.position();
                 hitD.css(pos).fadeIn( 10 , function() {
-                        hitD.fadeOut('slow');
+                        hitD.fadeOut('slow' , function() { 
+                                changeAnimation(abobo, aboboF.animations, IDLE, aboboF.currentState);
+                                aboboF.currentState = IDLE;
+                            } );
                     } );
 
             }
