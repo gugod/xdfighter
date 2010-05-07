@@ -321,9 +321,8 @@ $(function(){
                                                  var cvs2F = cvs2.data("fighter");
 		                                 changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
 		                                 cvs2F.currentState = BEATEN;
-                                                 po.remove();
                                              }
-                                             if (left > 600) {
+                                             if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
                                                  po.remove();
                                              }
                                              else
