@@ -265,11 +265,11 @@ $(function(){
     abobo.lifeBarEl = lifeBarD;
 
     abobo.reduceLife = cvs.reduceLife = function(val) {
-        this.lifeBarEl.life.animate( { width : '-=10%' }  );
+        this.lifeBarEl.life.animate( { width : '-='+ val +'%' }  );
     };
     abobo.increaseLife = cvs.increaseLife = function(val) {
         // this.lifeBar 
-        this.lifeBarEl.life.animate( { width : '+=10%' }  );
+        this.lifeBarEl.life.animate( { width : '+='+val+'%' }  );
     };
 
     // debug variable
@@ -289,16 +289,18 @@ $(function(){
 		    changeAnimation(abobo, aboboF.animations, BEATEN, aboboF.currentState);
 		    aboboF.currentState = BEATEN;
 
+            abobo.reduceLife( 10 );
+
             var pos = abobo.position();
             hitD.css(pos).fadeIn( 10 , function() {
                     hitD.fadeOut('slow');
                 } );
+
 		}
 	    } else if ((aboboF.currentState == KICK || aboboF.currentState == PUNCH) && cvsF.currentState != BEATEN) {
-		changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
-		cvsF.currentState = BEATEN;
-            console.log(  'beaten2'  );
-
+            changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
+            cvsF.currentState = BEATEN;
+            cvs.reduceLife( 10 );
 	    }
 	}
 	
