@@ -215,8 +215,9 @@ $(function(){
     var cvsLifeBar  = $('<div/>').addClass( 'lifebar' );
     cvsLifeBar.css( {  
         border: '1px solid red',
-        height: '12px',
-        width:  '100%'
+        height: '10px',
+        background: 'red',
+        width:  '99%'
         } );
     cvsLifeBarD.append( cvsLifeBar );
 
@@ -230,8 +231,9 @@ $(function(){
     var lifeBar  = $('<div/>').addClass( 'lifebar' );
     lifeBar.css( {  
         border: '1px solid red',
-        height: '12px',
-        width:  '100%'
+        background: 'red',
+        height: '10px',
+        width:  '99%'
         } );
     lifeBarD.append( lifeBar );
 
