@@ -204,15 +204,40 @@ $(function(){
     var hitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
     $(document.body).append( hitD  );
 
-    var lifeBarD = $('<div/>').css( {
-        border: '1px solid blue'
-    });
 
+    var cvsLifeBarD = $('<div/>').css( {
+        position: 'absolute',
+        left:   '10%',
+        border: '1px solid blue',
+        width:  '200px',
+        height: '12px'
+    });
+    var cvsLifeBar  = $('<div/>').addClass( 'lifebar' );
+    cvsLifeBar.css( {  
+        border: '1px solid red',
+        height: '12px',
+        width:  '100%'
+        } );
+    cvsLifeBarD.append( cvsLifeBar );
+
+    var lifeBarD = $('<div/>').css( {
+        left:   '50%',
+        position: 'absolute',
+        border: '1px solid blue',
+        width:  '200px',
+        height: '12px'
+    });
     var lifeBar  = $('<div/>').addClass( 'lifebar' );
-    lifeBar.css( {  border: '1px solid red' } );
+    lifeBar.css( {  
+        border: '1px solid red',
+        height: '12px',
+        width:  '100%'
+        } );
     lifeBarD.append( lifeBar );
 
+
     $(document.body).append( lifeBarD );
+    $(document.body).append( cvsLifeBarD );
 
     var cvs1 = create_cvs("cvs1", 250);
     var cvs2 = create_cvs("cvs2", 450);
