@@ -1,8 +1,11 @@
-$(function(){
+$(window).bind("load", function() {
     setTimeout(function() {
         window.scrollTo(0,1);
     }, 100);
+});
 
+
+$(function(){
     document.body.addEventListener("touchmove", function(event) { event.preventDefault(); return false; }, false);
 
     var joystick = document.getElementById("joystick");

@@ -206,7 +206,7 @@ $(function(){
 
 
     var cvs1 = create_cvs("cvs1", 250);
-    var cvs2 = create_cvs("cvs2", 450, animate);
+    var cvs2 = create_cvs("cvs2", 450);
     
     cvs2.adversary = "#cvs1";
     cvs1.adversary = "#cvs2";
@@ -294,6 +294,19 @@ $(function(){
         accepting_key = 1;
     }
 
+    function update_state(nextState) {
+         if (nextState != cvsF.currentState) {
+            changeAnimation(cvs, cvsF.animations, nextState, cvsF.currentState, cb);
+            if (nextState == PUNCH || nextState == KICK) {
+                accepting_key = 0;
+                cvs.css("z-index", 25);
+            } else if(cvsF.currentState == PUNCH || cvsF.currentState == KICK){
+                cvs.css("z-index", undefined);
+            }
+            cvsF.currentState = nextState;
+        }
+    }
+
     $(document).keydown(function(e) {
         if (!accepting_key)
             return;
@@ -320,45 +333,59 @@ $(function(){
             var cvsLeft = cvs.position().left;
             if ($('#po').length)
                 break;
-            $("#fighters").addSprite(	"po",
-				        {posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
-                                         posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
-			                 height: 50,
-			                 width: 50,
-				         animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
-								               type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
-
-                                         geometry: $.gameQuery.GEOMETRY_RECTANGLE,
-                                         callback: function(_po) {
-                                             var po = $(_po)
-                                             var left = po.position().left+2;
-	                                     if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
-                                                 var cvs2 = $("#cvs2");
-                                                 var cvs2F = cvs2.data("fighter");
-		                                 changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
-		                                 cvs2F.currentState = BEATEN;
-                                             }
-                                             if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
-                                                 po.remove();
-                                             }
-                                             else
-                                                 po.css('left', left+2);
-                                         }
-                                        });
+            $("#fighters").addSprite(
+	        "po",
+		{
+                    posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
+                    posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
+		    height: 50,
+		    width: 50,
+		    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
+						          type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
+                    
+                    geometry: $.gameQuery.GEOMETRY_RECTANGLE,
+                    callback: function(_po) {
+                        var po = $(_po)
+                        var left = po.position().left+2;
+	                if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
+                            var cvs2 = $("#cvs2");
+                            var cvs2F = cvs2.data("fighter");
+		            changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
+		            cvs2F.currentState = BEATEN;
+                        }
+                        if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
+                            po.remove();
+                        }
+                        else
+                            po.css('left', left+2);
+                    }
+                }
+            );
             break;
         }
 
-        if (nextState != cvsF.currentState) {
-            changeAnimation(cvs, cvsF.animations, nextState, cvsF.currentState, cb);
-            if (nextState == PUNCH || nextState == KICK) {
-                accepting_key = 0;
-                cvs.css("z-index", 25);
-            } else if(cvsF.currentState == PUNCH || cvsF.currentState == KICK){
-                cvs.css("z-index", undefined);
-            }
-            cvsF.currentState = nextState;
+        update_state(nextState);
+    });
+
+    $("#playground").bind("fightermove", function(e, data) {
+        var nextState = IDLE;
+
+        switch(data.move) {
+        case "punch":
+            nextState = PUNCH;
+            break;
+        case "kick":
+            nextState = KICK;
+            break;
+        case "walk_left":
+            nextState = WALK_BACKWARD;
+            break;
+        case "walk_right":
+            nextState = WALK_FORWARD
+            break;
         }
 
+        update_state(nextState);
     });
 
 });
