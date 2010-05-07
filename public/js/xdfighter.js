@@ -272,9 +272,9 @@ $(function(){
         this.lifeBarEl.life.animate( { width : '+=10%' }  );
     };
 
-    _p1 = cvs;
-    _p2 = abobo;
-
+    // debug variable
+    _player1 = cvs;
+    _player2 = abobo;
         
 	//hit?
 	if(cvsLeft+cvsF.animations[cvsF.currentState].width - 2 > aboboLeft){
