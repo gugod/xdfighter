@@ -76,72 +76,7 @@ $(function(){
     //constantes:
     NEAR=         100;
     
-    // this is a methods that returns a random element from the given array
-    function or(choice){
-        return choice[Math.round(Math.random()*(choice.length-1))];
-    };
-    
-    // return the distance between the opponents
-    function distance(a, b){
-        return Math.abs(a.position().left-b.position().left);
-    };
-    
-    function nextMove(level, a, b){
-        if(Math.random() > level){
-            return Math.round(Math.random()*5);
-        }
-        switch(b.data("fighter").currentState){
-            // if the adversary is idle or moves away from us we get near him or attack ihm
-        case IDLE: 
-        case WALK_BACKWARD: 
-        case BLOCK: 
-            if(distance(a,b) < NEAR){
-                return or([KICK, PUNCH, WALK_BACKWARD]);
-            } else {
-                return or([WALK_FORWARD, IDLE]);
-            }
-            break;
-            // if the adversary moves toward us we get away or attack ihm
-        case WALK_FORWARD: 
-            if(distance(a,b) < NEAR){
-                return or([KICK, PUNCH, WALK_BACKWARD]);
-            } else {
-                return or([WALK_FORWARD, IDLE]);
-            }
-            break;
-            // if we are under attack we either block go back or try to fight back
-        case PUNCH: 
-        case KICK:
-            return or([BLOCK, PUNCH, KICK, IDLE]);
-            break;
-            // if beaten we block or go back
-        case BEATEN: 
-            return or([BLOCK, WALK_BACKWARD, IDLE]);
-            break;
-        }
-    }
-
-    function animate(sprite){
-        sprite = $(sprite);
-        fighter = sprite.data("fighter");
-        adversary = $(fighter.adversary);
-        adversaryFighter = adversary.data("fighter");
-        
-        var nextState = nextMove(0.8, sprite, adversary);
-        
-        changeAnimation(sprite, fighter.animations, nextState, fighter.currentState);
-        
-        if(nextState == PUNCH || nextState == KICK){
-            sprite.css("z-index", 20);
-        } else if(fighter.currentState == PUNCH || fighter.currentState == KICK){
-            sprite.css("z-index", undefined);
-        }
-        
-        fighter.currentState = nextState;
-    }
-
     var scrollStage = function (offset){
-    	
     	if(offset > 50){
     	    offset = 50;
     	} else if(offset < -50) {
