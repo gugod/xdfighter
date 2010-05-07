@@ -308,7 +308,6 @@ $(function(){
             ENTER: 13
         };
 
-        arrow   = {left: 37, up: 38, right: 39, down: 40 };
         switch (keyCode) {
 
         case KEYS.LEFT:
@@ -331,16 +330,16 @@ $(function(){
             nextState = KICK;
             break;
 
-        case 65:
+        case 65: // KEY 'a'
             var cvsLeft = cvs.position().left;
             if ($('#po').length)
                 break;
             $("#fighters").addSprite(	"po",
 				        {posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
                                          posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
-			                 height: 50,
-			                 width: 50,
-				         animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
+                        height: 50,
+                        width:  50,
+                        animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
 								               type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
 
                                          geometry: $.gameQuery.GEOMETRY_RECTANGLE,
