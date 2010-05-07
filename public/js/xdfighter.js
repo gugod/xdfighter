@@ -110,7 +110,7 @@ $(function(){
     //Playground Sprites
     var foreground 	= new $.gameQuery.Animation({imageURL: "/test/stage/foreground.png", type: $.gameQuery.ANIMATION_VERTICAL});
     var ground 		= new $.gameQuery.Animation({imageURL: "/test/stage/ground.png"});
-    var background1 = new $.gameQuery.Animation({imageURL: "/test/stage/background1.png"});
+    var background1 = new $.gameQuery.Animation({imageURL: "/images/stage/background1.png"});
     var background2 = new $.gameQuery.Animation({imageURL: "/test/stage/background2.png"});
     var background3 = new $.gameQuery.Animation({imageURL: "/test/stage/background3.png"});
     $.playground().addSprite(	"background3",
@@ -122,7 +122,7 @@ $(function(){
 			 height: 180, width: 432,
 			 animation: background2})
 	.addSprite(	"background1",
-			{posx:50, posy: -150,
+			{posx:50, posy: 0,
 			 height: 317, width: 749,
 			 animation: background1})
 	.addSprite(	"ground",
