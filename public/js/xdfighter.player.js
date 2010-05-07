@@ -95,7 +95,7 @@ $(function(){
             var x = $(this).attr("button");
             hpipe.send({ 'player': player, 'key': x });
             return false;
-        }).bind("click", function() { $(this).trigger("touchstart") });
+        }).bind("click", function() { return $(this).trigger("touchstart") });
     }
 
     var timer_update;
