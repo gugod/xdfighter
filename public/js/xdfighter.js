@@ -311,6 +311,42 @@ $(function(){
         }
     }
 
+    function fire_tomato() {
+        var cvsLeft = cvs.position().left;
+        if ($('#po').length)
+            break;
+        $("#fighters").addSprite(
+	    "po",
+	    {
+                posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
+                posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
+		height: 50,
+		width: 50,
+		animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
+						      type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
+                
+                geometry: $.gameQuery.GEOMETRY_RECTANGLE,
+                callback: function(_po) {
+                    var po = $(_po)
+                    var left = po.position().left+2;
+	            if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
+                        po.css("z-index", 25);
+                        var cvs2 = $("#cvs2");
+                        var cvs2F = cvs2.data("fighter");
+		        changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
+		        cvs2F.currentState = BEATEN;
+                    }
+                    if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
+                        window.setTimeout(function() {
+                            po.remove() }, 1000);
+                    }
+                    else
+                        po.css('left', left+5).toggleClass('flip-horizontal');
+                }
+            }
+        );
+    }
+
     $(document).keydown(function(e) {
         if (!accepting_key)
             return;
@@ -348,39 +384,7 @@ $(function(){
             break;
 
         case 65: // KEY 'a'
-            var cvsLeft = cvs.position().left;
-            if ($('#po').length)
-                break;
-            $("#fighters").addSprite(
-	        "po",
-		{
-                    posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
-                    posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
-		    height: 50,
-		    width: 50,
-		    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
-						          type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
-                    
-                    geometry: $.gameQuery.GEOMETRY_RECTANGLE,
-                    callback: function(_po) {
-                        var po = $(_po)
-                        var left = po.position().left+2;
-	                if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
-                            po.css("z-index", 25);
-                            var cvs2 = $("#cvs2");
-                            var cvs2F = cvs2.data("fighter");
-		            changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
-		            cvs2F.currentState = BEATEN;
-                        }
-                        if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
-                            window.setTimeout(function() {
-                                po.remove() }, 1000);
-                        }
-                        else
-                            po.css('left', left+5).toggleClass('flip-horizontal');
-                    }
-                }
-            );
+            fire_tomato();
             break;
         }
 
@@ -402,6 +406,9 @@ $(function(){
             break;
         case "walk_right":
             nextState = WALK_FORWARD
+            break;
+        case "tomato":
+            fire_tomato($("#cvs" + data.player));
             break;
         }
 
