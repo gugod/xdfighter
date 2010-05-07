@@ -300,6 +300,37 @@ $(function(){
         case 13:
             nextState = KICK;
             break;
+        case 65:
+            var cvsLeft = cvs.position().left;
+            if ($('#po').length)
+                break;
+            $("#fighters").addSprite(	"po",
+				        {posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
+                                         posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
+			                 height: 50,
+			                 width: 50,
+				         animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
+								               type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
+
+                                         geometry: $.gameQuery.GEOMETRY_RECTANGLE,
+                                         callback: function(_po) {
+                                             var po = $(_po)
+                                             var left = po.position().left+2;
+	                                     if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
+                                                 var cvs2 = $("#cvs2");
+                                                 var cvs2F = cvs2.data("fighter");
+		                                 changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
+		                                 cvs2F.currentState = BEATEN;
+                                                 po.remove();
+                                             }
+                                             if (left > 600) {
+                                                 po.remove();
+                                             }
+                                             else
+                                                 po.css('left', left+2);
+                                         }
+                                        });
+            break;
         }
 
         if (nextState != cvsF.currentState) {
