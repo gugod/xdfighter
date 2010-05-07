@@ -4,7 +4,7 @@ $(function(){
     hpipe = new Hippie.Pipe();
     hpipe.args = "player";
 
-    function init_keybinding() {
+    function init_joystick() {
         $(document.body).bind("keydown", function(e) {
             var key = null;
             switch(e.keyCode) {
@@ -25,6 +25,12 @@ $(function(){
             if (key) {
                 hpipe.send({ 'player': player, 'key': key });
             }
+        });
+
+        $("#joystick a").bind("click", function(e) {
+            var x = $(this).attr("button");
+            hpipe.send({ 'player': player, 'key': x });
+            return false;
         });
     }
 
@@ -50,7 +56,7 @@ $(function(){
             do_timer_update();
         })
         .bind("ready", function() {
-            init_keybinding()
+            init_joystick();
         });
 
     hpipe.init();

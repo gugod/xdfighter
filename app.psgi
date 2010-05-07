@@ -25,6 +25,12 @@ $fight_engine->poll(
             when("down") {
                 $move = "crunch";
             }
+            when("p") {
+                $move = "punch";
+            }
+            when("k") {
+                $move = "kick";
+            }
         }
 
         my $result = { type => "move", "move" => $move, player => $message->{player}, t => time };
