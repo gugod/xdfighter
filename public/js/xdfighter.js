@@ -155,7 +155,6 @@ $(function(){
         $("#background1").css("left", ""+(50 + offset/2)+"px");
         $("#background2").css("left", ""+(30 + offset/4)+"px");
         $("#background3").css("left", ""+(90 + offset/5)+"px");
-    	
     }
     
     /*replace with new*/
@@ -168,6 +167,7 @@ $(function(){
         // XXX: buggy
         //            .css("top",  sprite.position().top  + animationArry[newAnimation].deltaY - animationArry[oldAnimation].deltaY)
     };
+
     
     // the game
     $("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, refreshRate: 30, keyTracker: false});
@@ -200,6 +200,11 @@ $(function(){
 			 animation: foreground});
     $("#sceengraph").css("background-color","#121423");
 
+
+    var hitD = $('<div/>').html('HIT!!!').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
+    $(document.body).append( hitD  );
+
+
     var cvs1 = create_cvs("cvs1", 250);
     var cvs2 = create_cvs("cvs2", 450, animate);
     
@@ -223,17 +228,25 @@ $(function(){
 	if(cvsLeft+cvsF.animations[cvsF.currentState].width - 2 > aboboLeft){
 	    if((cvsF.currentState == KICK || cvsF.currentState == PUNCH) && aboboF.currentState != BEATEN){
 		if (aboboF.currentState == KICK || aboboF.currentState == PUNCH) {
-		    changeAnimation(abobo, aboboF.animations, BEATEN, aboboF.currentState);
+            changeAnimation(abobo, aboboF.animations, BEATEN, aboboF.currentState);
 		    aboboF.currentState = BEATEN;
 		    changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
 		    cvsF.currentState = BEATEN;
-		} else {
+		} 
+        else {
 		    changeAnimation(abobo, aboboF.animations, BEATEN, aboboF.currentState);
 		    aboboF.currentState = BEATEN;
+
+            var pos = abobo.position();
+            hitD.css(pos).fadeIn( 200 , function() {
+                    hitD.fadeOut('slow');
+                } );
 		}
 	    } else if ((aboboF.currentState == KICK || aboboF.currentState == PUNCH) && cvsF.currentState != BEATEN) {
 		changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
 		cvsF.currentState = BEATEN;
+            console.log(  'beaten2'  );
+
 	    }
 	}
 	
