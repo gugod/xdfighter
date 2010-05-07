@@ -84,6 +84,7 @@ $(function(){
             if (key) {
                 hpipe.send({ 'player': player, 'key': key });
             }
+            return false;
         });
 
         $("#joystick a").bind("click", function(e) {
