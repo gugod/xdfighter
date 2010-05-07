@@ -204,6 +204,15 @@ $(function(){
     var hitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
     $(document.body).append( hitD  );
 
+    var lifeBarD = $('<div/>').css( {
+        border: '1px solid blue'
+    });
+
+    var lifeBar  = $('<div/>').addClass( 'lifebar' );
+    lifeBar.css( {  border: '1px solid red' } );
+    lifeBarD.append( lifeBar );
+
+    $(document.body).append( lifeBarD );
 
     var cvs1 = create_cvs("cvs1", 250);
     var cvs2 = create_cvs("cvs2", 450);
@@ -277,8 +286,6 @@ $(function(){
 	return false;
     }, 30);
     
-    //start loading!
-    $().setLoadBar("loadingBar", 600);
     //initialize the start button
     $.playground().startGame(function(){
 	$("#welcomMessage").fadeOut(2000, function(){$(this).remove()});
