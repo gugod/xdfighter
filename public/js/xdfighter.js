@@ -362,13 +362,15 @@ $(function(){
                         var po = $(_po)
                         var left = po.position().left+2;
 	                if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
+                            po.css("z-index", 25);
                             var cvs2 = $("#cvs2");
                             var cvs2F = cvs2.data("fighter");
 		            changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
 		            cvs2F.currentState = BEATEN;
                         }
                         if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
-                            po.remove();
+                            window.setTimeout(function() {
+                                po.remove() }, 1000);
                         }
                         else
                             po.css('left', left+2);
