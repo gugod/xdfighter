@@ -91,11 +91,11 @@ $(function(){
             return false;
         });
 
-        $("#joystick a").bind("click", function(e) {
+        $("#joystick a").bind("touchstart", function(e) {
             var x = $(this).attr("button");
             hpipe.send({ 'player': player, 'key': x });
             return false;
-        });
+        }).bind("click", function() { $(this).trigger("touchstart") });
     }
 
     var timer_update;
