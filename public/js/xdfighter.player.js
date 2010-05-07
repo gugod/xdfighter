@@ -6,6 +6,8 @@ $(window).bind("load", function() {
 
 
 $(function(){
+    var player = (location.search.match(/player=(\d)/))[1] || 1;
+
     document.body.addEventListener("touchmove", function(event) { event.preventDefault(); return false; }, false);
 
     var joystick = document.getElementById("joystick");
@@ -43,7 +45,6 @@ $(function(){
         return false;
     }, false);
 
-    var player = (location.hash || "#1").replace(/^#/, "");
     $("#player-id").text(player + "P");
     hpipe = new Hippie.Pipe();
     hpipe.args = "player";

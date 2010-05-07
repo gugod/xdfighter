@@ -17,7 +17,12 @@ $fight_engine->poll(
         my $move = "stand_still";
         given($message->{key}) {
             when(["left", "right"]) {
-                $move = "walk_" . $message->{key}
+                if ($message->{player} == 2) {
+                    $move = "walk_" . ($message->{key} eq "left" ? "right" : "left");
+                }
+                else {
+                    $move = "walk_" . $message->{key};
+                }
             }
             when("up") {
                 $move = "jump";

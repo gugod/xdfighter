@@ -219,11 +219,10 @@ $(function(){
         var cvsF = cvs.data("fighter");
         var cvsLeft = cvs.position().left;
         
-    var abobo = $("#cvs2");
+        var abobo = $("#cvs2");
         var aboboF = abobo.data("fighter");
         var aboboLeft = abobo.position().left;
         
-
 	//hit?
 	if(cvsLeft+cvsF.animations[cvsF.currentState].width - 2 > aboboLeft){
 	    if((cvsF.currentState == KICK || cvsF.currentState == PUNCH) && aboboF.currentState != BEATEN){
@@ -288,22 +287,29 @@ $(function(){
     var cvs = $("#cvs1");
     var cvsF = cvs.data("fighter");
     var accepting_key = 1;
-    var cb = function() {
-        changeAnimation(cvs, cvsF.animations, IDLE, cvsF.currentState, cb);
-        cvsF.currentState = IDLE;
-        accepting_key = 1;
-    }
 
-    function update_state(nextState) {
-         if (nextState != cvsF.currentState) {
-            changeAnimation(cvs, cvsF.animations, nextState, cvsF.currentState, cb);
+    function update_state($fighter, nextState) {
+        var fighter = $fighter.data("fighter");
+
+        if (nextState != fighter.currentState) {
+            changeAnimation(
+                $fighter,
+                fighter.animations,
+                nextState,
+                fighter.currentState,
+                function() {
+                    changeAnimation($fighter, fighter.animations, IDLE, fighter.currentState);
+                    fighter.currentState = IDLE;
+                    accepting_key = 1
+                }
+            );
             if (nextState == PUNCH || nextState == KICK) {
                 accepting_key = 0;
-                cvs.css("z-index", 25);
-            } else if(cvsF.currentState == PUNCH || cvsF.currentState == KICK){
-                cvs.css("z-index", undefined);
+                $fighter.css("z-index", 25);
+            } else if(fighter.currentState == PUNCH || fighter.currentState == KICK){
+                $fighter.css("z-index", undefined);
             }
-            cvsF.currentState = nextState;
+            fighter.currentState = nextState;
         }
     }
 
@@ -364,7 +370,7 @@ $(function(){
             break;
         }
 
-        update_state(nextState);
+        update_state(cvs, nextState);
     });
 
     $("#playground").bind("fightermove", function(e, data) {
@@ -385,7 +391,7 @@ $(function(){
             break;
         }
 
-        update_state(nextState);
+        update_state($("#cvs" + data.player), nextState);
     });
 
 });
