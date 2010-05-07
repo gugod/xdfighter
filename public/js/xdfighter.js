@@ -201,7 +201,7 @@ $(function(){
     $("#sceengraph").css("background-color","#121423");
 
 
-    var hitD = $('<div/>').html('HIT!!!').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
+    var hitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
     $(document.body).append( hitD  );
 
 
@@ -219,7 +219,7 @@ $(function(){
         var cvsF = cvs.data("fighter");
         var cvsLeft = cvs.position().left;
         
-        var abobo = $("#cvs2");
+    var abobo = $("#cvs2");
         var aboboF = abobo.data("fighter");
         var aboboLeft = abobo.position().left;
         
@@ -238,7 +238,7 @@ $(function(){
 		    aboboF.currentState = BEATEN;
 
             var pos = abobo.position();
-            hitD.css(pos).fadeIn( 200 , function() {
+            hitD.css(pos).fadeIn( 10 , function() {
                     hitD.fadeOut('slow');
                 } );
 		}
