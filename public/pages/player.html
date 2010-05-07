@@ -1,22 +1,71 @@
 <!doctype html>
 <html>
     <head>
+        <meta id="viewport" name="viewport" content="width=device-width,maximum-scale=1.0,user-scalable=no">
         <title>XD Fighter</title>
-        <link rel="stylesheet" href="/css/application.css" />
-    </head>
+        <style type="text/css" media="screen">
+body { padding: 0; margin: 0; -webkit-user-select: none; }
+#bd {
+    width: 480px;
+    height: 298px;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+}
+#joystick {
+    top: 0;
+    left: 0;
+    background: #eee;
+    width: 240px;
+    height: 298px;
+}
+#joyhead {
+    background: url(/images/aqua_ball_green.png) top left no-repeat;
+    width: 128px;
+    height: 128px;
+
+    position: relative;
+    top: 60px;
+    left: 60px;
+}
+#joystick a {
+    display: block;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    line-height: 90px;
+    text-align: center;
+    outline: 1px soldi red;
+    text-indent: -2000px;
+}
+#joystick a[button=up] {
+    top: 0;
+    left: 80px
+}
+#joystick a[button=left]  { top: 80px;  left: 0px;  }
+#joystick a[button=up]    { top: 0px;   left: 80px; }
+#joystick a[button=right] { top: 80px;  left: 160px;}
+#joystick a[button=down]  { top: 160px; left: 80px; }
+
+#joystick a[button=k] { top: 180px; left: 320px; }
+#joystick a[button=p] { top: 180px; left: 400px; }
+
+        </style>
+      </head>
     <body>
-        <h1><span id="player-id"></span> XD Fighter <span id="connection-status"></span></h1>
-        <div id="content"></div>
+        <div id="bd">
+            <div id="joystick">
+                <div id="joyhead"></div>
 
-        <div id="joystick">
-            <a href="javascript:;" button="left">⬅ </a>
-            <a href="javascript:;" button="up">⬆ </a>
-            <a href="javascript:;" button="right">➡ </a>
-            <a href="javascript:;" button="down">⬇ </a>
-            <a href="javascript:;" button="p">(P)</a>
-            <a href="javascript:;" button="k">(K)</a>
+                <a href="javascript:;" button="left">L</a>
+                <a href="javascript:;" button="up">U</a>
+                <a href="javascript:;" button="right">R</a>
+                <a href="javascript:;" button="down">D</a>
+
+                <a href="javascript:;" button="p">(P)</a>
+                <a href="javascript:;" button="k">(K)</a>
+            </div>
         </div>
-
         <script src="/js/jquery-1.4.2.min.js"></script>
         <script src="/js/jquery.cookie.js"></script>
         <script src="/js/jquery.ev.js"></script>

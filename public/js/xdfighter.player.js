@@ -1,4 +1,45 @@
 $(function(){
+    setTimeout(function() {
+        window.scrollTo(0,1);
+    }, 100);
+
+    document.body.addEventListener("touchmove", function(event) { event.preventDefault(); return false; }, false);
+
+    var joystick = document.getElementById("joystick");
+    var joyhead  = document.getElementById("joyhead");
+
+    // startX,startY = the center of the joyhead.
+    var startX = 124; // 60 (#joyhead left) + 128/2 (#joyhead width  / 2)
+    var startY = 124; // 60 (#joyhead top) + 128/2 (#joyhead height / 2)
+
+    joystick.addEventListener("touchmove", function(event) {
+        event.preventDefault();
+        var e = event.targetTouches[0];
+        var curX = e.pageX - startX;
+        var curY = e.pageY - startY;
+        joyhead.style['-webkit-transform'] = "translate(" + curX + "px," + curY + "px)";
+
+        if (curX < -40 && -40 < curY && curY < 40) {
+            hpipe.send({ 'player': player, 'key': 'left' });
+        }
+        else if (curX > 40 && -40 < curY && curY < 40) {
+            hpipe.send({ 'player': player, 'key': 'right' });
+        }
+        else if (curY < -40 && -40 < curX && curX < 40) {
+            hpipe.send({ 'player': player, 'key': 'up' });
+        }
+        else if (curY >  40 && -40 < curX && curX < 40) {
+            hpipe.send({ 'player': player, 'key': 'down' });
+        }
+        return false;
+    }, false);
+
+    joystick.addEventListener("touchend", function(event) {
+        event.preventDefault();
+        joyhead.style['-webkit-transform'] = "translate(0px, 0px)";
+        return false;
+    }, false);
+
     var player = (location.hash || "#1").replace(/^#/, "");
     $("#player-id").text(player + "P");
     hpipe = new Hippie.Pipe();
@@ -35,24 +76,16 @@ $(function(){
     }
 
     var timer_update;
-    var status = $('#connection-status');
     jQuery(hpipe)
         .bind("connected", function () {
-            status.addClass("connected").text("Connected");
             if(timer_update) clearTimeout(timer_update);
         })
         .bind("disconnected", function() {
-            status.removeClass("connected").text("Server disconnected. ");
         })
         .bind("reconnecting", function(e, data) {
-            var retry = new Date(new Date().getTime()+data.after*1000);
-            var try_now = $('<span/>').text("Try now").click(data.try_now);
-            var timer = $('<span/>');
             var do_timer_update = function() {
-                timer.text( Math.ceil((retry - new Date())/1000) + "s. " )
                 timer_update = window.setTimeout( do_timer_update, 1000);
             };
-            status.text("Server disconnected.  retry in ").append(timer).append(try_now);
             do_timer_update();
         })
         .bind("ready", function() {
