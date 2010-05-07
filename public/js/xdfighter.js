@@ -136,9 +136,9 @@ $(function(){
     $("#sceengraph").css("background-color","#121423");
 
 
-    var hitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
-    $(document.body).append( hitD  );
-
+    var cvshitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
+    var abobohitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
+    $(document.body).append( cvshitD  ).append( abobohitD );
 
     var cvsLifeBarD = $('<div/>').css( {
         position: 'absolute',
@@ -200,12 +200,10 @@ $(function(){
     abobo.lifeBarEl = lifeBarD;
 
     abobo.reduceLife = cvs.reduceLife = function(val) {
-        // this.lifeBarEl.life.animate( { width : '-='+ val +'%' }  );
-        this.lifeBarEl.life.animate( { width : '-=10%' }  );
+        this.lifeBarEl.life.animate( { width : '-='+ val +'%' }  );
     };
     abobo.increaseLife = cvs.increaseLife = function(val) {
-        // this.lifeBar 
-        this.lifeBarEl.life.animate( { width : '+=10%' }  );
+        this.lifeBarEl.life.animate( { width : '+='+ val +'%' }  );
     };
 
     // debug variable
@@ -229,11 +227,17 @@ $(function(){
                 aboboF.currentState = BEATEN;
 
                 console.log(  'abobo is beaten.'  );
-                abobo.reduceLife( 10 );
+
+                if ( cvsF.currentState == KICK ) {
+                    abobo.reduceLife( 10 );
+                } 
+                else if( cvsF.currentState = PUNCH ) {
+                    abobo.reduceLife( 5 );
+                }
 
                 var pos = abobo.position();
-                hitD.css(pos).fadeIn( 10 , function() {
-                        hitD.fadeOut('slow' , function() { 
+                abobohitD.css(pos).fadeIn( 10 , function() {
+                        abobohitD.fadeOut('slow' , function() { 
                                 changeAnimation(abobo, aboboF.animations, IDLE, aboboF.currentState);
                                 aboboF.currentState = IDLE;
                             } );
@@ -245,7 +249,20 @@ $(function(){
             console.log(  'cvs is beaten.'  );
             changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
             cvsF.currentState = BEATEN;
-            cvs.reduceLife( 10 );
+
+            if ( aboboF.currentState == KICK ) {
+                cvs.reduceLife( 10 );
+            } 
+            else if( aboboF.currentState = PUNCH ) {
+                cvs.reduceLife( 5 );
+            }
+
+            cvshitD.css(pos).fadeIn( 10 , function() {
+                    cvshitD.fadeOut('slow' , function() { 
+                            changeAnimation( cvs, cvsF.animations, IDLE, cvsF.currentState);
+                            cvs.currentState = IDLE;
+                        } );
+                } );
 	    }
 	}
 	
