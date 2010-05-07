@@ -354,7 +354,7 @@ $(function(){
                     posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
 		    height: 50,
 		    width: 50,
-		    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png",
+		    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
 						          type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
                     
                     geometry: $.gameQuery.GEOMETRY_RECTANGLE,
@@ -373,7 +373,7 @@ $(function(){
                                 po.remove() }, 1000);
                         }
                         else
-                            po.css('left', left+2);
+                            po.css('left', left+5).toggleClass('flip-horizontal');
                     }
                 }
             );
