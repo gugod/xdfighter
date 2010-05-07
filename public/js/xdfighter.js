@@ -324,7 +324,7 @@ $(function(){
         if (!accepting_key)
             return;
         var nextState = IDLE;
-        var keyCode = e.keyCode || e.which,
+        var keyCode = e.keyCode || e.which;
         var KEYS = { 
             LEFT: 37,
             UP: 38,
