@@ -299,23 +299,38 @@ $(function(){
             return;
         var nextState = IDLE;
         var keyCode = e.keyCode || e.which,
+        var KEYS = { 
+            LEFT: 37,
+            UP: 38,
+            RIGHT: 39,
+            DOWN: 40,
+            SPACE: 32,
+            ENTER: 13
+        };
+
         arrow   = {left: 37, up: 38, right: 39, down: 40 };
         switch (keyCode) {
-        case arrow.left:
+
+        case KEYS.LEFT:
             nextState = WALK_BACKWARD;
             break;
-        case arrow.right:
+
+        case KEYS.RIGHT:
             nextState = WALK_FORWARD;
             break;
-        case arrow.down:
+
+        case KEYS.DOWN:
             nextState = BLOCK;
             break;
-        case 32:
+
+        case KEYS.SPACE:
             nextState = PUNCH;
             break;
-        case 13:
+
+        case KEYS.ENTER:
             nextState = KICK;
             break;
+
         case 65:
             var cvsLeft = cvs.position().left;
             if ($('#po').length)
