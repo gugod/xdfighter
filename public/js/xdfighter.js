@@ -219,7 +219,9 @@ $(function(){
         background: 'red',
         width:  '99%'
         } );
+    cvsLifeBarD.life = cvsLifeBar;
     cvsLifeBarD.append( cvsLifeBar );
+
 
     var lifeBarD = $('<div/>').css( {
         left:   '50%',
@@ -235,8 +237,8 @@ $(function(){
         height: '10px',
         width:  '99%'
         } );
+    lifeBarD.life = lifeBar;
     lifeBarD.append( lifeBar );
-
 
     $(document.body).append( lifeBarD );
     $(document.body).append( cvsLifeBarD );
@@ -255,9 +257,24 @@ $(function(){
         var cvsF = cvs.data("fighter");
         var cvsLeft = cvs.position().left;
         
-        var abobo = $("#cvs2");
+    var abobo = $("#cvs2");
         var aboboF = abobo.data("fighter");
         var aboboLeft = abobo.position().left;
+
+    cvs.lifeBarEl = cvsLifeBarD;
+    abobo.lifeBarEl = lifeBarD;
+
+    abobo.reduceLife = cvs.reduceLife = function(val) {
+        this.lifeBarEl.life.animate( { width : '-=10%' }  );
+    };
+    abobo.increaseLife = cvs.increaseLife = function(val) {
+        // this.lifeBar 
+        this.lifeBarEl.life.animate( { width : '+=10%' }  );
+    };
+
+    _p1 = cvs;
+    _p2 = abobo;
+
         
 	//hit?
 	if(cvsLeft+cvsF.animations[cvsF.currentState].width - 2 > aboboLeft){
