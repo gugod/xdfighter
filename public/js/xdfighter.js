@@ -122,7 +122,7 @@ $(function(){
 			 height: 180, width: 432,
 			 animation: background2})
 	.addSprite(	"background1",
-			{posx:50, posy: 0,
+			{posx:50, posy: -100,
 			 height: 317, width: 749,
 			 animation: background1})
 	.addSprite(	"ground",
