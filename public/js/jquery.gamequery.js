@@ -344,6 +344,7 @@
                         position: options.position,
                         display:  "block",
                         overflow: "hidden",
+                        top:      110 + "px",
                         height:   options.height+"px",
                         width:    options.width+"px"
                     })
