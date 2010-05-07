@@ -70,7 +70,7 @@ builder {
     };
 
     mount "/" => builder {
-        enable "Static", path => qr{^/(pages|images|js|css)/}, root => 'public/';
+        enable "Static", path => qr{^/(test|pages|images|js|css)/}, root => 'public/';
         sub {
             my $env = shift;
             my $req = Plack::Request->new($env);
