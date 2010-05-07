@@ -212,7 +212,7 @@ $(function(){
         
 	//hit?
 	if( cvsLeft + cvsF.animations[cvsF.currentState].width - 2 > aboboLeft ){
-        console.log(  'role overlay'  );
+//        console.log(  'role overlay'  );
 
 	    if((cvsF.currentState == KICK || cvsF.currentState == PUNCH) && aboboF.currentState != BEATEN){
 
@@ -226,7 +226,7 @@ $(function(){
                 changeAnimation(abobo, aboboF.animations, BEATEN, aboboF.currentState);
                 aboboF.currentState = BEATEN;
 
-                console.log(  'abobo is beaten.'  );
+//                console.log(  'abobo is beaten.'  );
 
                 if ( cvsF.currentState == KICK ) {
                     abobo.reduceLife( 10 );
@@ -246,7 +246,7 @@ $(function(){
             }
 	    } 
         else if ((aboboF.currentState == KICK || aboboF.currentState == PUNCH) && cvsF.currentState != BEATEN) {
-            console.log(  'cvs is beaten.'  );
+//            console.log(  'cvs is beaten.'  );
             changeAnimation(cvs, cvsF.animations, BEATEN, cvsF.currentState);
             cvsF.currentState = BEATEN;
 
@@ -331,7 +331,7 @@ $(function(){
     function fire_tomato() {
         var cvsLeft = cvs.position().left;
         if ($('#po').length)
-            break;
+            return;
         $("#fighters").addSprite(
 	    "po",
 	    {
