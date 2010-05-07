@@ -14,7 +14,7 @@ $fight_engine->poll(
     sub {
         my $message = shift;
 
-        my $move = "stand_still";
+        my $move;
         given($message->{key}) {
             when(["left", "right"]) {
                 if ($message->{player} == 2) {
@@ -35,6 +35,12 @@ $fight_engine->poll(
             }
             when("k") {
                 $move = "kick";
+            }
+            when("a") {
+                $move = "tomato";
+            }
+            default {
+                $move = "idle"
             }
         }
 

@@ -40,10 +40,7 @@ body { padding: 0; margin: 0; -webkit-user-select: none; }
     outline: 1px soldi red;
     text-indent: -2000px;
 }
-#joystick a[button=up] {
-    top: 0;
-    left: 80px
-}
+#joystick a[button=up]    { top: 0px;   left: 80px  }
 #joystick a[button=left]  { top: 80px;  left: 0px;  }
 #joystick a[button=up]    { top: 0px;   left: 80px; }
 #joystick a[button=right] { top: 80px;  left: 160px;}
@@ -53,11 +50,23 @@ body { padding: 0; margin: 0; -webkit-user-select: none; }
     top: 180px; left: 320px;
     background: red;
     text-indent: 0;
+    -webkit-border-radius: 40px;
+    -webkit-box-shadow: 1px 1px 5px #000;
 }
 #joystick a[button=p] {
     top: 180px; left: 400px;
     background: red;
     text-indent: 0;
+    -webkit-border-radius: 40px;
+    -webkit-box-shadow: 1px 1px 5px #000;
+}
+#joystick a[button=a] {
+    top: 110px;
+    left: 360px;
+    background: red;
+    text-indent: 0;
+    -webkit-border-radius: 40px;
+    -webkit-box-shadow: 1px 1px 5px #000;
 }
 
         </style>
@@ -74,6 +83,7 @@ body { padding: 0; margin: 0; -webkit-user-select: none; }
 
                 <a href="javascript:;" button="p">(P)</a>
                 <a href="javascript:;" button="k">(K)</a>
+                <a href="javascript:;" button="a">(A)</a>
             </div>
         </div>
         <script src="/js/jquery-1.4.2.min.js"></script>
