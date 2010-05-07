@@ -406,6 +406,8 @@ $(function(){
         }
 
         update_state(cvs, nextState);
+
+        return false;
     });
 
     $("#playground").bind("fightermove", function(e, data) {
