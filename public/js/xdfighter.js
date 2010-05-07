@@ -294,6 +294,9 @@ $(function(){
         case arrow.right:
             nextState = WALK_FORWARD;
             break;
+        case arrow.down:
+            nextState = BLOCK;
+            break;
         case 32:
             nextState = PUNCH;
             break;
