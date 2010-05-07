@@ -13,6 +13,11 @@ html,body{
     top: 10px;
     right: 10px;
 }
+#content {
+    position: fixed;
+    top: 20px;
+    right: 10px;
+}
 .flip-horizontal {
     -moz-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);
@@ -24,11 +29,8 @@ html,body{
     <body>
         <h1>Arena XD Fighter</h1>
         <div id="connection-status"></div>
-
-	<div id="playground" style="width: 800px; height: 200px;">
-	</div>        
-        <div id="content">
-        </div>
+	<div id="playground" style="width: 800px; height: 200px;"></div>
+        <div id="content"></div>
 
         <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="/js/jquery.cookie.js"></script>
@@ -40,6 +42,5 @@ html,body{
         <script type="text/javascript" src="/js/json2.js"></script>
 	<script type="text/javascript" src="/js/jquery.gamequery.js"></script>
 	<script type="text/javascript" src="/js/xdfighter.arena.js"></script>
-	<script type="text/javascript" src="/js/xdfighter.js"></script>
     </body>
 </html>

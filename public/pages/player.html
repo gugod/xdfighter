@@ -2,7 +2,9 @@
 <html>
     <head>
         <meta id="viewport" name="viewport" content="width=device-width,maximum-scale=1.0,user-scalable=no">
+        <meta content="yes" name="apple-mobile-web-app-capable"> 
         <title>XD Fighter</title>
+
         <style type="text/css" media="screen">
 body { padding: 0; margin: 0; -webkit-user-select: none; }
 #bd {
@@ -47,8 +49,16 @@ body { padding: 0; margin: 0; -webkit-user-select: none; }
 #joystick a[button=right] { top: 80px;  left: 160px;}
 #joystick a[button=down]  { top: 160px; left: 80px; }
 
-#joystick a[button=k] { top: 180px; left: 320px; }
-#joystick a[button=p] { top: 180px; left: 400px; }
+#joystick a[button=k] { 
+    top: 180px; left: 320px;
+    background: red;
+    text-indent: 0;
+}
+#joystick a[button=p] {
+    top: 180px; left: 400px;
+    background: red;
+    text-indent: 0;
+}
 
         </style>
       </head>
@@ -67,7 +77,6 @@ body { padding: 0; margin: 0; -webkit-user-select: none; }
             </div>
         </div>
         <script src="/js/jquery-1.4.2.min.js"></script>
-        <script src="/js/jquery.cookie.js"></script>
         <script src="/js/jquery.ev.js"></script>
         <script src="/js/DUI.js"></script>
         <script src="/js/Stream.js"></script>
