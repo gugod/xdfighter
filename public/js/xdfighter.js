@@ -1,5 +1,5 @@
-var PLAYGROUND_WIDTH = 800 ;
-var PLAYGROUND_HEIGHT = 200;
+var PLAYGROUND_WIDTH = 960;
+var PLAYGROUND_HEIGHT = 500;
 
 function create_cvs(name, position, callback) {
     //Fighters
@@ -45,8 +45,16 @@ function create_cvs(name, position, callback) {
                       {animation: new $.gameQuery.Animation({	imageURL: "/images/xd_hit_59x103x1.png",
             						        rate: 720,
                 					        type: $.gameQuery.ANIMATION_CALLBACK}),
-		       deltaX: 0, deltaY: 3, width: 59, height: 103}]
-    }
+		       deltaX: 0, deltaY: 3, width: 59, height: 103},
+                      {animation: new $.gameQuery.Animation({	imageURL: "/images/xd_qigong_75x99x4.png",
+								numberOfFrame: 4,
+            						        rate: 200,
+                                                                delta: 75,
+								type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
+                       deltaX: 0, deltaY: 3, width: 75, height: 99}
+                    ]
+    };
+
     $("#fighters").addSprite(name,
 			     {posx: position,
 			      posy: 70,
@@ -72,6 +80,7 @@ $(function(){
     KICK=          4;
     BLOCK=         5;
     BEATEN=        6;
+    TOMATO=        7;
     
     //constantes:
     NEAR=         100;
@@ -121,7 +130,6 @@ $(function(){
 			 height: 44, width: 2000,
 			 animation: foreground});
     $("#sceengraph").css("background-color","#121423");
-
 
     var cvshitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
     var abobohitD = $('<div/>').html('<img src="/images/xd_hit_msg.png"/>').css( {  position:'absolute', left: 0, top: 0 , display: 'none' } );
@@ -319,36 +327,34 @@ $(function(){
         var cvsLeft = cvs.position().left;
         if ($('#po').length)
             return;
-        $("#fighters").addSprite(
-	    "po",
-	    {
-                posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
-                posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
-		height: 50,
-		width: 50,
-		animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
-						      type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
-                
-                geometry: $.gameQuery.GEOMETRY_RECTANGLE,
-                callback: function(_po) {
+
+        $("#fighters").addSprite("po", {
+            posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
+            posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
+	    height: 50,
+	    width: 50,
+	    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
+						  type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
+            
+            geometry: $.gameQuery.GEOMETRY_RECTANGLE,
+            callback: function(_po) {
                     var po = $(_po)
-                    var left = po.position().left+2;
-	            if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
-                        po.css("z-index", 25);
-                        var cvs2 = $("#cvs2");
-                        var cvs2F = cvs2.data("fighter");
-		        changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
-		        cvs2F.currentState = BEATEN;
-                    }
-                    if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
-                        window.setTimeout(function() {
-                            po.remove() }, 1000);
-                    }
-                    else
-                        po.css('left', left+5).toggleClass('flip-horizontal');
+                var left = po.position().left+2;
+	        if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
+                    po.css("z-index", 25);
+                    var cvs2 = $("#cvs2");
+                    var cvs2F = cvs2.data("fighter");
+		    changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
+		    cvs2F.currentState = BEATEN;
                 }
+                if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
+                    window.setTimeout(function() {
+                        po.remove() }, 1000);
+                }
+                else
+                    po.css('left', left+5).toggleClass('flip-horizontal');
             }
-        );
+        });
     }
 
     $(document).keydown(function(e) {
@@ -388,6 +394,7 @@ $(function(){
             break;
 
         case 65: // KEY 'a'
+            nextState = TOMATO;
             fire_tomato();
             break;
         }
@@ -411,9 +418,10 @@ $(function(){
             nextState = WALK_BACKWARD;
             break;
         case "walk_right":
-            nextState = WALK_FORWARD
+            nextState = WALK_FORWARD;
             break;
         case "tomato":
+            nextState = TOMATO;
             fire_tomato($("#cvs" + data.player));
             break;
         }
