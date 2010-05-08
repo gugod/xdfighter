@@ -361,6 +361,7 @@ $(function(){
                     }
 
                     if (left < 10 || left + fighter.animations[fighter.currentState].width - 40 - $fighter_left.width() < $fighter_left.position().left) {
+                        $tomato.css("background-image", "url(/images/tomato_px.png)");
                         setTimeout(function() { $tomato.remove() }, 1000);
                     }
                     else {
@@ -376,6 +377,7 @@ $(function(){
                     }
 
                     if (left > 600 || left + fighter.animations[fighter.currentState].width - 40 > $fighter_right.position().left) {
+                        $tomato.css("background-image", "url(/images/tomato_px.png)");
                         window.setTimeout(function() { $tomato.remove() }, 1000);
                     }
                     else {
