@@ -353,32 +353,39 @@ $(function(){
                 var $fighter_right = $("#cvs2");
 
                 if ($tomato.attr("id") == "tomatocvs2") {
-	            if(left < $fighter_left.width() + $fighter_left.position().left){
+                    if(left < $fighter_left.width() + $fighter_left.position().left){
                         $tomato.css("z-index", 25);
                         var f = $fighter_left.data("fighter");
-		        changeAnimation($fighter_left, f.animations, BEATEN, f.currentState);
-		        f.currentState = BEATEN;
+                        changeAnimation($fighter_left, f.animations, BEATEN, f.currentState);
+                        f.currentState = BEATEN;
                     }
 
-                    if (left < 10 || left + fighter.animations[fighter.currentState].width - 40 - $fighter_left.width() < $fighter_left.position().left) {
+                    if (left < 10 
+                        || left + fighter.animations[fighter.currentState].width
+                            - 40 - $fighter_left.width() < $fighter_left.position().left ) {
                         $tomato.css("background-image", "url(/images/tomato_px.png)");
-                        setTimeout(function() { $tomato.remove() }, 1000);
+                        window.setTimeout(function() { 
+                                $tomato.remove();
+                            }, 1000);
                     }
                     else {
                         $tomato.css('left', left - 5).toggleClass('flip-horizontal');
                     }                    
                 }
                 else {
-	            if(left + fighter.animations[fighter.currentState].width - 2 > $fighter_right.position().left){
+                    if(left + fighter.animations[fighter.currentState].width - 2 > $fighter_right.position().left){
                         $tomato.css("z-index", 25);
                         var f = $fighter_right.data("fighter");
-		        changeAnimation($fighter_right, f.animations, BEATEN, f.currentState);
-		        f.currentState = BEATEN;
+                        changeAnimation($fighter_right, f.animations, BEATEN, f.currentState);
+                        f.currentState = BEATEN;
                     }
 
                     if (left > 600 || left + fighter.animations[fighter.currentState].width - 40 > $fighter_right.position().left) {
                         $tomato.css("background-image", "url(/images/tomato_px.png)");
-                        window.setTimeout(function() { $tomato.remove() }, 1000);
+
+                        window.setTimeout(function() { 
+                                $tomato.remove();
+                            }, 1000);
                     }
                     else {
                         $tomato.css('left', left + 5).toggleClass('flip-horizontal');
