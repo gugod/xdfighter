@@ -328,36 +328,60 @@ $(function(){
         }
     }
 
-    function fire_tomato() {
-        var cvsLeft = cvs.position().left;
-        if ($('#po').length)
-            return;
+    function fire_tomato($fighter) {
+        var RIGHT_FIGHTER = "cvs2";
 
-        $("#fighters").addSprite("po", {
-            posx: cvsLeft+cvsF.animations[cvsF.currentState].width,
-            posy: cvs.position().top+cvsF.animations[cvsF.currentState].height/4,
+        var fighter_id = $fighter.attr("id");
+        var tomato_id  = "tomato" + fighter_id;
+
+        if ($("#" + tomato_id).length) return;
+
+        var fighter = $fighter.data("fighter");
+
+        $("#fighters").addSprite(tomato_id, {
+            posx: $fighter.position().left + (fighter_id == RIGHT_FIGHTER ? -1 : 1 ) * fighter.animations[fighter.currentState].width,
+            posy: $fighter.position().top  + fighter.animations[fighter.currentState].height/4,
 	    height: 50,
 	    width: 50,
-	    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120,
-						  type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
-            
+	    animation: new $.gameQuery.Animation({imageURL: "/images/tomato.png", rate: 120, type: $.gameQuery.ANIMATION_HORIZONTAL | $.gameQuery.ANIMATION_CALLBACK}),
             geometry: $.gameQuery.GEOMETRY_RECTANGLE,
-            callback: function(_po) {
-                    var po = $(_po)
-                var left = po.position().left+2;
-	        if(left+cvsF.animations[cvsF.currentState].width - 2 > $("#cvs2").position().left){
-                    po.css("z-index", 25);
-                    var cvs2 = $("#cvs2");
-                    var cvs2F = cvs2.data("fighter");
-		    changeAnimation(cvs2, cvs2F.animations, BEATEN, cvs2F.currentState);
-		    cvs2F.currentState = BEATEN;
+            callback: function(tomato) {
+                var $tomato = $(tomato);
+                var left = $tomato.position().left + 2;
+
+                var $fighter_left  = $("#cvs1");
+                var $fighter_right = $("#cvs2");
+
+                if ($tomato.attr("id") == "tomatocvs2") {
+	            if(left < $fighter_left.width() + $fighter_left.position().left){
+                        $tomato.css("z-index", 25);
+                        var f = $fighter_left.data("fighter");
+		        changeAnimation($fighter_left, f.animations, BEATEN, f.currentState);
+		        f.currentState = BEATEN;
+                    }
+
+                    if (left < 10 || left + fighter.animations[fighter.currentState].width - 40 - $fighter_left.width() < $fighter_left.position().left) {
+                        setTimeout(function() { $tomato.remove() }, 1000);
+                    }
+                    else {
+                        $tomato.css('left', left - 5).toggleClass('flip-horizontal');
+                    }                    
                 }
-                if (left > 600 || left+cvsF.animations[cvsF.currentState].width - 40 > $("#cvs2").position().left) {
-                    window.setTimeout(function() {
-                        po.remove() }, 1000);
+                else {
+	            if(left + fighter.animations[fighter.currentState].width - 2 > $fighter_right.position().left){
+                        $tomato.css("z-index", 25);
+                        var f = $fighter_right.data("fighter");
+		        changeAnimation($fighter_right, f.animations, BEATEN, f.currentState);
+		        f.currentState = BEATEN;
+                    }
+
+                    if (left > 600 || left + fighter.animations[fighter.currentState].width - 40 > $fighter_right.position().left) {
+                        window.setTimeout(function() { $tomato.remove() }, 1000);
+                    }
+                    else {
+                        $tomato.css('left', left + 5).toggleClass('flip-horizontal');
+                    }
                 }
-                else
-                    po.css('left', left+5).toggleClass('flip-horizontal');
             }
         });
     }
@@ -400,7 +424,7 @@ $(function(){
 
         case 65: // KEY 'a'
             nextState = TOMATO;
-            fire_tomato();
+            fire_tomato(cvs);
             break;
         }
 
