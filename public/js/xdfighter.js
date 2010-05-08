@@ -1,5 +1,5 @@
-var PLAYGROUND_WIDTH = 960;
-var PLAYGROUND_HEIGHT = 500;
+var PLAYGROUND_WIDTH = 800;
+var PLAYGROUND_HEIGHT = 200;
 
 function create_cvs(name, position, callback) {
     //Fighters
@@ -290,9 +290,14 @@ $(function(){
     }, 30);
     
     //initialize the start button
-    $.playground().startGame(function(){
-	$("#welcomMessage").fadeOut(2000, function(){$(this).remove()});
-    });
+    $("#welcomMessage").fadeOut(
+        2000,
+        function() {
+            $(this).remove();
+            $.playground().startGame(function(){});
+        }
+    );
+
 
     var cvs = $("#cvs1");
     var cvsF = cvs.data("fighter");
